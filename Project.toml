@@ -1,0 +1,4 @@
+name = "MeshExtrusions"
+uuid = "03d05e0c-52e7-4868-8973-a4323c22e768"
+authors = ["Cris Moen <cris.moen@runtosolve.com>"]
+version = "0.1.0"
