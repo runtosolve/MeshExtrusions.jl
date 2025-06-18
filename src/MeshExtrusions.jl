@@ -438,12 +438,12 @@ end
 
 
 
-function mesh_w_section(bf, d, t, member_length)
+function mesh_w_section(bf, d, t, mesh, member_length)
 
     ### top flange 
     L = [bf]
     θ = [0.0]
-    n = [2]
+    n = [mesh.top_flange]
 
     cross_section = CrossSectionGeometry.generate_thin_walled(L, θ, n)
 
@@ -459,7 +459,7 @@ function mesh_w_section(bf, d, t, member_length)
     #bottom flange 
     L = [bf]
     θ = [0.0]
-    n = [2]
+    n = [mesh.bottom_flange]
 
     cross_section = CrossSectionGeometry.generate_thin_walled(L, θ, n)
 
@@ -479,7 +479,7 @@ function mesh_w_section(bf, d, t, member_length)
     #web
     L = [d - t]
     θ = [π/2]
-    n = [1]
+    n = [mesh.web]
 
     cross_section = CrossSectionGeometry.generate_thin_walled(L, θ, n)
 
