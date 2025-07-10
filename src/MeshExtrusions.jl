@@ -450,7 +450,8 @@ function mesh_w_section(bf, d, t, mesh, member_length)
     X = [cross_section[i][1] for i in eachindex(cross_section)]
     Y = [cross_section[i][2] for i in eachindex(cross_section)] .+ (d - t)
 
-    Z_n = Int(member_length)
+    # Z_n = Int(member_length)
+    Z_n = mesh.along_length
     Z = collect(range(0.0, member_length, Z_n + 1))
 
     nodes_tf, elements_tf = open_cross_section_with_shell_elements(X, Y, Z)
