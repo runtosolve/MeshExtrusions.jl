@@ -467,14 +467,21 @@ function mesh_w_section(bf, d, t, mesh, member_length)
     X = [cross_section[i][1] for i in eachindex(cross_section)]
     Y = [cross_section[i][2] for i in eachindex(cross_section)]
 
-    Z_n = Int(member_length)
+    # Z_n = Int(member_length)
+    Z_n = mesh.along_length
     Z = collect(range(0.0, member_length, Z_n + 1))
 
     nodes_bf, elements_bf = open_cross_section_with_shell_elements(X, Y, Z)
 
-    nodes_bf[:, 1] .+= 10000
-    elements_bf[:, 1:5] .+= 10000
+    node_offset = size(nodes_tf)[1]
+    element_offset = size(elements_tf)[1]
 
+    # nodes_bf[:, 1] .+= 10000
+    # elements_bf[:, 1:5] .+= 10000
+
+    nodes_bf[:, 1] .+= node_offset
+    elements_bf[:, 2:5] .+= node_offset
+    elements_bf[:, 1] .+= element_offset
 
 
     #web
@@ -487,13 +494,22 @@ function mesh_w_section(bf, d, t, mesh, member_length)
     X = [cross_section[i][1] for i in eachindex(cross_section)] .+ bf / 2 
     Y = [cross_section[i][2] for i in eachindex(cross_section)] 
 
-    Z_n = Int(member_length)
+    # Z_n = Int(member_length)
+    Z_n = mesh.along_length
     Z = collect(range(0.0, member_length, Z_n + 1))
 
     nodes_web, elements_web = open_cross_section_with_shell_elements(X, Y, Z)
 
-    nodes_web[:, 1] .+= 20000
-    elements_web[:, 1:5] .+= 20000
+    node_offset += size(nodes_web)[1]
+    element_offset += size(elements_web)[1]
+
+    nodes_web[:, 1] .+= node_offset
+    elements_web[:, 2:5] .+= node_offset
+    elements_web[:, 1] .+= element_offset
+
+
+    # nodes_web[:, 1] .+= 20000
+    # elements_web[:, 1:5] .+= 20000
 
 
     nodes_all = [nodes_tf;  nodes_bf; nodes_web]
